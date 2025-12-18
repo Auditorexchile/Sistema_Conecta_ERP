@@ -1,0 +1,32 @@
+# Configuración
+config/config.php
+
+# Logs
+logs/*.log
+!logs/.gitkeep
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+!uploads/documentos/.gitkeep
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Temporales
+tmp/
+temp/
+cache/
+
+# Vendor (si se usa Composer en el futuro)
+vendor/

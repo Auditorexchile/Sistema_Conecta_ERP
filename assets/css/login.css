@@ -1,0 +1,49 @@
+/**
+ * Estilos para la página de login
+ */
+
+.login-page {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.login-page .card {
+    border: none;
+    border-radius: 15px;
+}
+
+.login-page .card-body {
+    background: white;
+    border-radius: 15px;
+}
+
+.login-page h1 {
+    color: #667eea;
+}
+
+.login-page .form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.login-page .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    padding: 12px;
+    font-weight: 600;
+}
+
+.login-page .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+}
+
+.login-page .input-group-text {
+    background-color: #f8f9fa;
+    border-right: none;
+}
+
+.login-page .form-control {
+    border-left: none;
+}

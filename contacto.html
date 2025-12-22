@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - AuditorEx Chile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <a href="https://wa.me/56985754559?text=Hola, necesito información" class="btn-whatsapp-flotante" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <a href="mailto:gerencia@auditorexchile.cl" class="btn-email-flotante">
+        <i class="fas fa-envelope"></i>
+    </a>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-logo">
+                <a href="index.html"><h2>AuditorEx<span>Chile</span></h2></a>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li class="dropdown">
+                    <a href="servicios.html">Servicios <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="servicios.html#iso">Implementación ISO</a></li>
+                        <li><a href="servicios.html#auditoria">Auditoría de Sistemas</a></li>
+                        <li><a href="servicios.html#consultoria">Consultoría Financiera</a></li>
+                        <li><a href="servicios.html#softland">Capacitación Softland</a></li>
+                        <li><a href="servicios.html#ventas-soft">Ventas Softland</a></li>
+                        <li><a href="servicios.html#sap">SAP HANA</a></li>
+                        <li><a href="servicios.html#reparacion">Reparación de Equipos</a></li>
+                    </ul>
+                </li>
+                <li><a href="ventas.html">Ventas</a></li>
+                <li><a href="contacto.html" class="active">Contacto</a></li>
+            </ul>
+            <div class="nav-btns">
+                <a href="tel:+56985754559" class="btn-llamar"><i class="fas fa-phone"></i> +56 9 8575 4559</a>
+                <a href="mailto:gerencia@auditorexchile.cl" class="btn-email-nav"><i class="fas fa-envelope"></i> Email</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Contáctanos</h1>
+            <p>Estamos aquí para ayudarte</p>
+        </div>
+    </section>
+
+    <section class="contacto-page">
+        <div class="container">
+            <div class="contacto-grid">
+                <!-- Información de Contacto -->
+                <div class="contacto-info-section">
+                    <h2>Información de Contacto</h2>
+                    <p>Escríbenos y nos pondremos en contacto contigo a la brevedad</p>
+
+                    <div class="contacto-items">
+                        <div class="contacto-item-card">
+                            <div class="contacto-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Dirección</h4>
+                                <p>Providencia 1017, OF 41<br>Providencia, Santiago<br>Chile</p>
+                            </div>
+                        </div>
+
+                        <div class="contacto-item-card">
+                            <div class="contacto-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Teléfono</h4>
+                                <p><a href="tel:+56985754559">+56 9 8575 4559</a></p>
+                                <a href="https://wa.me/56985754559" class="btn-whatsapp-small" target="_blank">
+                                    <i class="fab fa-whatsapp"></i> Abrir WhatsApp
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="contacto-item-card">
+                            <div class="contacto-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>
+                                    <a href="mailto:gerencia@auditorexchile.cl">gerencia@auditorexchile.cl</a><br>
+                                    <a href="mailto:contacto@auditorexchile.cl">contacto@auditorexchile.cl</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contacto-item-card">
+                            <div class="contacto-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4>Horario de Atención</h4>
+                                <p>
+                                    <strong>Lunes a Sábado</strong><br>
+                                    09:00 - 21:00 hrs<br><br>
+                                    <strong>Domingo</strong><br>
+                                    Cerrado
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de Contacto -->
+                <div class="contacto-form-section">
+                    <h2>Envíanos un Mensaje</h2>
+                    <form action="mailto:gerencia@auditorexchile.cl" method="post" enctype="text/plain" class="form-contacto">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">Nombre Completo *</label>
+                                <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" id="telefono" name="telefono" placeholder="+56 9 XXXX XXXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="servicio">Servicio de Interés</label>
+                                <select id="servicio" name="servicio">
+                                    <option value="">Seleccione un servicio</option>
+                                    <option value="Implementación ISO">Implementación ISO</option>
+                                    <option value="Auditoría de Sistemas">Auditoría de Sistemas</option>
+                                    <option value="Consultoría Financiera">Consultoría Financiera y Forense</option>
+                                    <option value="Capacitación Softland">Capacitación Softland</option>
+                                    <option value="Ventas Softland">Ventas Softland</option>
+                                    <option value="Capacitaciones SAP HANA">Capacitaciones SAP HANA</option>
+                                    <option value="Reparación de Equipos">Reparación de Equipos</option>
+                                    <option value="Consultoría TI">Consultoría TI</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje *</label>
+                            <textarea id="mensaje" name="mensaje" rows="6" required placeholder="Describe tu consulta o necesidad..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                        </button>
+
+                        <div class="form-alternative">
+                            <p>O contáctanos directamente:</p>
+                            <div class="btns-alternative">
+                                <a href="https://wa.me/56985754559?text=Hola, necesito información" class="btn btn-success btn-block" target="_blank">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                                <a href="tel:+56985754559" class="btn btn-outline btn-block">
+                                    <i class="fas fa-phone"></i> Llamar Ahora
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Mapa (Placeholder) -->
+            <div class="mapa-section">
+                <h2>Encuéntranos</h2>
+                <div class="mapa-placeholder">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.318982089771!2d-70.61843308479943!3d-33.43147158076706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf5c837be38d%3A0x6c880e98aafe228!2sProvidencia%201017%2C%20Providencia%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1234567890!5m2!1ses!2scl"
+                        width="100%"
+                        height="450"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>AuditorEx Chile</h3>
+                    <p>Especialistas en soluciones informáticas, auditoría y soporte técnico</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="servicios.html">Servicios</a></li>
+                        <li><a href="ventas.html">Ventas</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="servicios.html#iso">Implementación ISO</a></li>
+                        <li><a href="servicios.html#auditoria">Auditoría de Sistemas</a></li>
+                        <li><a href="servicios.html#softland">Capacitación Softland</a></li>
+                        <li><a href="servicios.html#sap">SAP HANA</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+56985754559">+56 9 8575 4559</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:gerencia@auditorexchile.cl">gerencia@auditorexchile.cl</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Providencia 1017, OF 41, Santiago</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AuditorEx Chile - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

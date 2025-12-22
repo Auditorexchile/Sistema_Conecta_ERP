@@ -1,0 +1,84 @@
+# AuditorEx Chile - GitIgnore
+
+# Sistema Operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDEs y Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencias
+node_modules/
+vendor/
+bower_components/
+
+# Archivos de Construcción
+dist/
+build/
+*.min.css
+*.min.js
+
+# Archivos Temporales
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Archivos de Configuración Local
+.env
+.env.local
+.env.*.local
+config.local.php
+
+# Archivos de Backup
+*.bak
+*.backup
+*~
+
+# Caché
+.cache/
+*.cache
+
+# Archivos de Sistema
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+*.lcov
+
+# Archivos de Base de Datos Local
+*.sqlite
+*.db
+
+# Archivos Grandes (imágenes sin optimizar, videos, etc)
+# Descomentar si es necesario
+# *.psd
+# *.ai
+# *.sketch
+
+# Mantener carpetas vacías
+!.gitkeep

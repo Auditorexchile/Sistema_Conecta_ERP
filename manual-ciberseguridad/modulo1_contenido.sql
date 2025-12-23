@@ -764,3 +764,1307 @@ Cultura y Procesos:
 -- Casos 9-15 continuarán con este nivel de detalle...
 -- Por ahora guardo progreso
 
+
+-- CASO 9
+INSERT INTO casos_reales (tema_id, numero, titulo, empresa, pais, anio, descripcion, analisis, consecuencias, lecciones_aprendidas, referencias) VALUES
+(1, 9, 'Ataque de Suplantación de Gateway en Metro de Santiago',
+'Metro de Santiago', 'Chile', 2023,
+'Compromiso de red de señalización del Metro mediante suplantación de gateway DHCP afectó sistemas de control de trenes durante hora punta.',
+'Análisis Técnico Detallado:
+
+Infraestructura Crítica Afectada:
+- Red de Control de Señalización: 10.50.0.0/16
+- Sistema SCADA: Siemens Trainguard MT
+- Controladores PLC: Siemens S7-1500
+- Red de Comunicaciones de Trenes: 172.20.0.0/16  
+- Switches Industriales: Cisco IE-4000 series
+- 148 estaciones conectadas
+- 6 líneas operativas afectadas
+- 1,367 cámaras de seguridad en red
+- Sistema de ventilación automatizado
+
+Cronología del Ataque:
+
+Día 1 - 06:45 AM (Hora Punta):
+- Dispositivo malicioso conectado en estación Baquedano
+- Inicio de ataque DHCP starvation contra servidor legítimo
+- Pool DHCP agotado en 4 minutos
+- Dispositivo atacante comienza a responder solicitudes DHCP
+- Gateway falso configurado: 10.50.1.254 (debía ser 10.50.1.1)
+- DNS servers redirigidos a 1.1.1.1 controlado por atacante
+
+06:52 AM:
+- Primeros controladores PLC reiniciados obtienen configuración maliciosa
+- Comunicación con centro de control interrumpida
+- Señales de tráfico de trenes comienzan a fallar
+- Sistema de seguridad activa paradas automáticas
+
+07:00 AM:
+- 23 trenes detenidos en túneles por fallo de señalización
+- Evacuación de emergencia iniciada
+- Centro de Control pierde visibilidad de 4 líneas
+- Sistemas de ventilación de túneles en modo manual
+- Comunicaciones de emergencia afectadas
+
+07:15 AM:
+- Ingenieros de red detectan anomalía en tablas DHCP
+- Tráfico capturado muestra múltiples servidores DHCP
+- Identificación de dispositivo malicioso
+- Desconexión física del atacante
+
+07:30 AM:
+- Inicio de procedimientos de recuperación
+- Reseteo manual de 340 dispositivos de red
+- Reconfiguración de PLCs afectados
+- Restablecimiento gradual del servicio
+
+Técnicas de Ataque Empleadas:
+1. DHCP Starvation Attack (usando herramienta Yersinia)
+2. Rogue DHCP Server deployment
+3. Man-in-the-Middle mediante gateway falso
+4. DNS Spoofing para interceptar consultas
+5. Reconnaissance de red para mapeo de infraestructura crítica
+6. ARP Poisoning complementario en algunos segmentos
+
+Análisis Forense Post-Incidente:
+- Dispositivo: Raspberry Pi 4 con adaptador PoE
+- Software: Kali Linux con scripts personalizados
+- Conexión física: Puerto ethernet en sala técnica estación
+- Alimentación: Power over Ethernet (PoE) del switch
+- Acceso físico: Credencial clonada de contratista
+- Cámara de seguridad deshabilitada previamente
+- Huellas digitales en dispositivo (identificación posterior)',
+
+'Consecuencias Críticas:
+
+Impacto en Servicio Público:
+- 23 trenes detenidos simultáneamente
+- 14,500 pasajeros evacuados de túneles
+- Cierre completo de 4 líneas por 3 horas
+- Servicio degradado en todas las líneas por 8 horas
+- 890,000 viajes afectados durante el día
+- Tiempo promedio de espera: 45 minutos (normal: 3 min)
+- Saturación de transporte superficial alternativo
+- Caos en combinaciones con Transantiago
+
+Impacto en Seguridad de Pasajeros:
+- Evacuaciones de emergencia en 23 puntos
+- 47 personas atendidas por crisis de pánico
+- 12 lesiones leves durante evacuaciones
+- Activación de protocolos de emergencia en 6 hospitales cercanos
+- Respuesta de Bomberos, Carabineros y SAMU
+- Investigación de Onemi (Oficina Nacional de Emergencia)
+
+Impacto Operacional:
+- Pérdida de $340 millones en ingresos por tarifas
+- Costo de evacuaciones y emergencias: $125 millones
+- Horas-hombre en recuperación: 4,500 horas
+- Inspección completa de seguridad de toda la red
+- Auditoría de todos los puntos de acceso físico
+- Reemplazo de credenciales de 2,340 contratistas
+- Actualización de firmware en 890 dispositivos de red
+
+Impacto Regulatorio:
+- Investigación de Ministerio de Transportes
+- Fiscalización de Subsecretaría de Transportes (SUBTEL)
+- Informe obligatorio a Contraloría General de la República
+- Auditoría de Seguridad por empresa externa certificada
+- Multa administrativa: $890 millones CLP
+- Obligación de plan de mejora continua certificado
+- Reportes mensuales de seguridad durante 2 años
+
+Impacto en Seguridad Nacional:
+- Clasificación como infraestructura crítica nacional
+- Intervención de CSIRT Gobierno
+- Investigación de PDI por sabotaje a servicio público
+- Evaluación de amenaza terrorista (descartada posteriormente)
+- Protocolo de coordinación con Defensa Civil
+- Inclusión en Plan Nacional de Ciberseguridad
+
+Impacto Reputacional y Social:
+- Cobertura mediática masiva por 2 semanas
+- Trending topic en redes sociales
+- Críticas por seguridad en infraestructura crítica
+- Renuncia del Gerente de Tecnología
+- Interpelación del Ministro de Transportes en Cámara
+- Pérdida de confianza ciudadana en robustez del sistema
+- Demandas de usuarios por daños y perjuicios
+
+Impacto Financiero Total:
+- Pérdida de ingresos: $340 millones CLP
+- Costos de emergencia: $125 millones CLP
+- Multa regulatoria: $890 millones CLP
+- Consultoría de seguridad: $450 millones CLP
+- Actualización de infraestructura: $2,100 millones CLP
+- Costos legales: $180 millones CLP
+- Instalación de sistemas de seguridad física: $560 millones CLP
+- Capacitación de personal: $90 millones CLP
+- Indemnizaciones a usuarios (demandas): $420 millones CLP (estimado)
+- TOTAL: $5,155 millones CLP',
+
+'Lecciones Aprendidas Exhaustivas:
+
+Segmentación y Aislamiento de Redes Críticas:
+1. Segregar completamente red de señalización de otras redes
+2. Implementar air gaps físicos para sistemas críticos de seguridad
+3. Utilizar VLANs privadas (PVLAN) para dispositivos de control
+4. Crear zonas DMZ entre redes IT y OT
+5. Implementar arquitectura Purdue Model Level 0-3 estrictamente
+6. Usar diodos de datos (data diodes) para comunicación unidireccional
+7. Establecer microsegmentación con firewalls de próxima generación
+8. Implementar Zero Trust Network Access (ZTNA)
+9. Separar físicamente redes de gestión de redes operacionales
+10. Utilizar out-of-band management para dispositivos críticos
+
+Protección de Servicios DHCP:
+11. Implementar DHCP Snooping en TODOS los switches
+12. Configurar trusted ports únicamente para servidores DHCP legítimos
+13. Establecer rate limiting en solicitudes DHCP por puerto
+14. Implementar IP Source Guard complementario
+15. Utilizar reservas DHCP para todos los dispositivos críticos
+16. Considerar direccionamiento IP estático para PLCs y SCADA
+17. Monitorear respuestas DHCP múltiples en tiempo real
+18. Implementar alertas automáticas de rogue DHCP servers
+19. Configurar DHCP failover para alta disponibilidad
+20. Mantener pools DHCP separados por función/criticidad
+
+Seguridad Física de Infraestructura de Red:
+21. Implementar control de acceso biométrico en salas técnicas
+22. Instalar cámaras de seguridad con grabación continua
+23. Utilizar switches con puertos deshabilitados por defecto
+24. Implementar detección de dispositivos no autorizados (NAC)
+25. Sellar físicamente puertos ethernet no utilizados
+26. Usar alarmas en gabinetes de red
+27. Implementar sistemas de detección de apertura de puertas
+28. Realizar auditorías físicas mensuales de puntos de acceso
+29. Mantener inventario actualizado de todos los dispositivos
+30. Utilizar cable locks y protección contra vandalismo
+
+Gestión de Credenciales y Acceso de Contratistas:
+31. Implementar sistema de gestión de identidad para contratistas
+32. Usar credenciales temporales con fecha de expiración
+33. Requir autorización específica para acceso a áreas críticas
+34. Implementar sistema de acompañamiento obligatorio
+35. Realizar background checks exhaustivos
+36. Establecer NDA y acuerdos de confidencialidad estrictos
+37. Revocar accesos inmediatamente al finalizar contrato
+38. Auditar todos los accesos de contratistas
+39. Implementar video verificación de identidad
+40. Mantener registro de herramientas ingresadas/egresadas
+
+Monitoreo y Detección de Anomalías:
+41. Implementar SIEM con correlación de eventos IT/OT
+42. Establecer baselines de comportamiento de red
+43. Monitorear patrones de tráfico DHCP continuamente
+44. Implementar IDS/IPS específicos para protocolos industriales
+45. Utilizar machine learning para detección de anomalías
+46. Establecer alertas de threshold para eventos de red
+47. Monitorear cambios no autorizados en configuraciones
+48. Implementar file integrity monitoring en sistemas críticos
+49. Utilizar honeypots para detección temprana de reconocimiento
+50. Establecer SOC 24/7 con personal especializado en OT
+
+Respuesta a Incidentes en Infraestructura Crítica:
+51. Desarrollar playbooks específicos para ataques a señalización
+52. Establecer procedimientos de failover automático
+53. Mantener sistemas redundantes para funciones críticas
+54. Practicar simulacros de ciberataques trimestralmente
+55. Coordinar con servicios de emergencia (Bomberos, SAMU, Carabineros)
+56. Establecer canales de comunicación de emergencia alternativos
+57. Mantener procedimientos de operación manual actualizados
+58. Capacitar operadores en detección de anomalías
+59. Implementar kill switches para aislamiento rápido
+60. Documentar y practicar procedimientos de evacuación
+
+Cumplimiento y Estándares:
+61. Cumplir con IEC 62443 (Industrial Automation and Control Systems Security)
+62. Implementar ISO 27001 adaptado a transporte público
+63. Seguir directrices de NIST Cybersecurity Framework
+64. Cumplir con estándares de transporte ferroviario (EN 50159)
+65. Implementar ISO 22301 (Business Continuity Management)
+66. Seguir mejores prácticas de ISA/IEC 62443-3-3
+67. Mantener certificación SOC 2 Type II
+68. Cumplir con regulaciones locales de infraestructura crítica
+69. Implementar gestión de riesgos según ISO 31000
+70. Mantener auditorías de seguridad semestrales por terceros
+
+Capacitación y Concienciación:
+71. Capacitar a TODO el personal en ciberseguridad básica
+72. Especializar ingenieros en seguridad OT
+73. Realizar ejercicios de respuesta a incidentes
+74. Establecer programa de recompensas por reporte de anomalías
+75. Capacitar en identificación de dispositivos sospechosos
+76. Entrenar operadores en procedimientos de emergencia
+77. Realizar campañas de concienciación sobre ingeniería social
+78. Certificar personal clave en seguridad industrial (GICSP, GRID)
+79. Mantener conocimientos actualizados sobre amenazas emergentes
+80. Fomentar cultura de seguridad en todos los niveles',
+
+'Fuentes Documentales:
+- Metro de Santiago - Informe de Incidente Crítico 2023-08-15
+- Ministerio de Transportes y Telecomunicaciones - Investigación Administrativa
+- SUBTEL - Fiscalización 2023-0847
+- PDI Brigada de Cibercrimen - Investigación 2023-BC-0456
+- CSIRT Gobierno - Alerta de Seguridad 2023-089
+- Onemi - Reporte de Emergencia SIREDECI 2023-1456
+- Contraloría General de la República - Dictamen 2023-3456
+- El Mercurio, La Tercera, CNN Chile - Cobertura mediática Agosto 2023
+- ICS-CERT Advisory - Transportation Systems Security
+- SANS ICS Summit 2023 - Caso de Estudio
+- Dragos Industrial Cybersecurity Report 2023');
+
+-- CASO 10
+INSERT INTO casos_reales (tema_id, numero, titulo, empresa, pais, anio, descripcion, analisis, consecuencias, lecciones_aprendidas, referencias) VALUES
+(1, 10, 'Fragmentación IPv6 Maliciosa en Universidad Técnica Federico Santa María',
+'UTFSM', 'Chile', 2022,
+'Ataque de fragmentación IPv6 saturó firewalls y sistemas IDS, permitiendo exfiltración de investigación académica confidencial.',
+'Análisis Técnico Detallado:
+
+Infraestructura Universitaria:
+- Campus: Valparaíso, Viña del Mar, Santiago
+- Red Académica: 172.16.0.0/12 (IPv4) + 2001:1398::/32 (IPv6)
+- Conexión Internet: REUNA (Red Universitaria Nacional)
+- Ancho de banda: 10 Gbps
+- Firewall Perimetral: Palo Alto PA-5220 cluster
+- IDS/IPS: Suricata + Snort
+- Servidores de Investigación: 340 sistemas Linux/Windows
+- Estudiantes conectados: ~8,500 dispositivos
+- Docentes/Investigadores: ~1,200 estaciones
+
+Vector de Ataque - Fragmentación IPv6:
+
+Fundamento Técnico:
+- IPv6 permite fragmentación de paquetes hasta 1,280 bytes (MTU mínimo)
+- Fragmentos se reensamblan en el host destino (no en routers intermedios)
+- Firewalls deben mantener estado de fragmentos para inspección
+- Tabla de fragmentos limitada (típicamente 10,000-50,000 entradas)
+
+Metodología del Ataque:
+
+Fase 1 - Reconocimiento (Semana 1-2):
+1. Atacante (estudiante de doctorado) identificó habilitación IPv6
+2. Descubrió que firewall tenía procesamiento limitado de fragmentos IPv6
+3. Determinó que IDS no inspeccionaba fragmentos reensamblados
+4. Identificó servidores de investigación con datos sensibles
+5. Mapeó red interna usando técnicas de escaneo IPv6
+
+Fase 2 - Desarrollo de Exploit (Semana 3):
+6. Creó herramienta personalizada en Python (Scapy)
+7. Generador de fragmentos IPv6 con overlap malicioso
+8. Implementó técnica de "fragment overlap attack"
+9. Diseñó payload para evasión de IDS mediante fragmentación
+10. Probó en laboratorio personal la efectividad
+
+Fase 3 - Ejecución del Ataque (Mes 2-4):
+11. Inició bombardeo de fragmentos IPv6 desde múltiples fuentes
+12. Generación de 45,000 fragmentos/segundo hacia firewall
+13. Saturación de tabla de estado de fragmentos
+14. Firewall comenzó a descartar paquetes legítimos (fail-open partial)
+15. IDS sobrecargado, perdiendo 68% de paquetes para inspección
+16. Payloads maliciosos pasaron sin detección en fragmentos
+17. Establecimiento de shells reversas en 12 servidores de investigación
+18. Exfiltración de datos académicos vía túneles fragmentados IPv6
+
+Técnicas Específicas Utilizadas:
+- Fragment Overlap Attack: Fragmentos con offsets solapados
+- Tiny Fragments: Fragmentos de tamaño mínimo para saturar tablas
+- Fragment ID Prediction: Predicción de IDs para evasión
+- Fragment Timeout Manipulation: Juego con timers de reensamblado
+- Covert Channels: Canales encubiertos en campos IPv6 reservados
+- Tunneling: Encapsulación de tráfico C2 en fragmentos
+
+Detección del Incidente:
+
+Indicadores Iniciales:
+- Día 45: Administrador de red notó uso anómalo de CPU en firewall (94% constante)
+- Logs mostraban millones de entradas de "fragment timeout"
+- Tráfico IPv6 representaba 87% del total (normal: 12%)
+- Latencia en red aumentó de 8ms a 340ms promedio
+- Quejas de usuarios por lentitud generalizada
+
+Investigación:
+- Captura de tráfico con tcpdump reveló fragmentación excesiva
+- Análisis con Wireshark mostró patrones anómalos
+- Correlación de logs identificó origen: IP 2001:1398:1:f13c::89
+- Geolocalización interna: Laboratorio de Computación, Campus Valparaíso
+- Análisis forense de estación reveló scripts de ataque
+- Identificación del responsable mediante logs de autenticación
+
+Datos Comprometidos:
+- 340 GB de investigaciones en inteligencia artificial
+- Proyectos financiados por CONICYT (ahora ANID)
+- Algoritmos propietarios en desarrollo
+- Bases de datos de proyectos con empresas
+- Propiedad intelectual en proceso de patentamiento
+- Comunicaciones confidenciales entre investigadores',
+
+'Consecuencias Multidimensionales:
+
+Impacto Académico y Científico:
+- Compromiso de 47 proyectos de investigación activos
+- Pérdida de ventaja competitiva en 8 patentes en proceso
+- Retraso de 14 meses en publicaciones científicas
+- Necesidad de revalidación de resultados comprometidos
+- Pérdida de confidencialidad en colaboraciones internacionales
+- Afectación a 89 investigadores y 134 tesistas
+- Daño a reputación académica de la universidad
+
+Impacto Operacional y Técnico:
+- Degradación severa de rendimiento de red por 2 meses
+- Interrupción de clases online y acceso a recursos
+- Necesidad de reconfiguración completa de infraestructura
+- Actualización forzada de firewalls (costo: $280 millones CLP)
+- Migración de servidores de investigación
+- Implementación de controles IPv6 específicos
+- 3,400 horas-hombre en remediación
+
+Impacto Legal y Disciplinario:
+- Expulsión del estudiante responsable
+- Proceso judicial por Ley 19.223 (delitos informáticos)
+- Demanda civil por daños (USD $890,000)
+- Pérdida de beca de doctorado
+- Inhabilitación para trabajar en sector público
+- Antecedentes penales
+- Pena solicitada: 3 años presidio menor
+
+Impacto en Financiamiento:
+- Cancelación de 3 proyectos por pérdida de confidencialidad
+- Devolución parcial de fondos ANID ($340 millones CLP)
+- Pérdida de contratos con empresas privadas ($680 millones)
+- Reducción de financiamiento futuro por cuestionamiento de seguridad
+- Necesidad de certificación de seguridad para nuevos proyectos
+
+Impacto Regulatorio:
+- Investigación de ANID sobre protocolos de seguridad
+- Auditoría de CSIRT REUNA
+- Requisito de cumplir con ISO 27001 para futuros fondos
+- Implementación obligatoria de DLP en investigación sensible
+- Reportes trimestrales de seguridad durante 3 años
+
+Impacto Financiero Total:
+- Pérdida de propiedad intelectual: Incalculable
+- Actualización de infraestructura: $280 millones CLP
+- Consultoría de seguridad: $120 millones CLP
+- Costos legales: $65 millones CLP
+- Pérdida de financiamiento: $1,020 millones CLP
+- Horas-hombre remediación: $85 millones CLP
+- Certificaciones requeridas: $45 millones CLP
+- TOTAL: ~$1,615 millones CLP (sin contar propiedad intelectual)',
+
+'Lecciones Aprendidas Comprehensivas:
+
+Gestión de Protocolos IPv6:
+1. Implementar inspección profunda de paquetes IPv6 al mismo nivel que IPv4
+2. Configurar límites estrictos en tabla de fragmentos IPv6
+3. Implementar reassembly timeout agresivos (5-10 segundos)
+4. Bloquear fragmentos IPv6 innecesarios en perímetro
+5. Considerar política de "no fragmentación" para tráfico crítico
+6. Utilizar extension headers filtering
+7. Implementar rate limiting específico para fragmentos IPv6
+8. Monitorear métricas de fragmentación continuamente
+9. Establecer baselines de tráfico IPv6 normal
+10. Deshabilitar IPv6 si no se requiere activamente
+
+Hardening de Firewalls y IDS/IPS:
+11. Dimensionar hardware para peor escenario de fragmentación
+12. Configurar fragment reasmb virtual buffers adecuados
+13. Implementar preprocessing de fragmentos antes de inspección
+14. Utilizar firewalls con capacidades anti-evasión avanzadas
+15. Habilitar "scrub" de fragmentos (normalización)
+16. Configurar alertas para tasas anómalas de fragmentación
+17. Implementar DPI que pueda inspeccionar tráfico reensamblado
+18. Utilizar múltiples capas de inspección (defensa en profundidad)
+19. Mantener firewalls actualizados con últimos parches
+20. Realizar tuning regular basado en patrones de tráfico
+
+Protección de Investigación y Propiedad Intelectual:
+21. Clasificar datos de investigación por nivel de sensibilidad
+22. Implementar DLP (Data Loss Prevention) en endpoints y red
+23. Encriptar datos en reposo y en tránsito (E2EE)
+24. Segregar redes de investigación sensible
+25. Utilizar VPN con autenticación fuerte para acceso remoto
+26. Implementar watermarking digital en documentos sensibles
+27. Establecer políticas de uso aceptable estrictas
+28. Requerir NDAs para toda investigación confidencial
+29. Limitar acceso a datos solo a personal autorizado
+30. Auditar accesos a datos sensibles regularmente
+
+Monitoreo y Detección de Amenazas:
+31. Implementar SIEM con correlación de eventos avanzada
+32. Establecer baselines de comportamiento de usuarios
+33. Monitorear patrones anómalos de acceso a datos
+34. Implementar UBA (User Behavior Analytics)
+35. Detectar exfiltración de datos mediante análisis de volumen
+36. Utilizar machine learning para detección de anomalías
+37. Monitorear uso de herramientas de hacking (Scapy, Nmap, etc.)
+38. Implementar honeypots en segmentos de investigación
+39. Correlacionar logs de múltiples fuentes (firewall, IDS, endpoints)
+40. Establecer SOC con personal capacitado en amenazas avanzadas
+
+Control de Acceso y Privilegios:
+41. Implementar principio de mínimo privilegio estrictamente
+42. Utilizar autenticación multifactor para acceso a datos sensibles
+43. Segregar acceso por nivel de confidencialidad del proyecto
+44. Implementar 802.1X para autenticación de dispositivos
+45. Utilizar NAC para controlar acceso basado en postura de seguridad
+46. Revocar accesos inmediatamente al finalizar proyecto
+47. Realizar revisiones periódicas de privilegios (trimestral)
+48. Implementar PAM para accesos administrativos
+49. Auditar todos los accesos privilegiados
+50. Utilizar jump servers para administración de sistemas críticos
+
+Gestión de Redes Académicas:
+51. Segregar VLANs por función (estudiantes, docentes, investigación, admin)
+52. Implementar ACLs estrictas entre segmentos
+53. Utilizar firewalls internos para microsegmentación
+54. Separar completamente red de invitados (guest WiFi)
+55. Monitorear tráfico anómalo entre segmentos
+56. Implementar rate limiting por usuario/dispositivo
+57. Bloquear protocolos innecesarios
+58. Deshabilitar servicios no utilizados
+59. Mantener inventario actualizado de dispositivos
+60. Realizar escaneos de vulnerabilidades regulares
+
+Respuesta a Incidentes Académicos:
+61. Desarrollar plan de respuesta específico para entorno académico
+62. Establecer procedimientos de preservación de evidencia
+63. Coordinar con departamento legal desde el inicio
+64. Documentar chain of custody adecuadamente
+65. Involucrar a fiscalía especializada en cibercrimen tempranamente
+66. Comunicar incidente a agencias de financiamiento (ANID, CONICYT)
+67. Notificar a colaboradores externos afectados
+68. Implementar procedimientos de recuperación de datos
+69. Realizar análisis forense completo
+70. Aprender y actualizar controles basándose en incidentes
+
+Políticas y Procedimientos:
+71. Establecer políticas claras de uso aceptable
+72. Implementar código de ética en investigación y uso de TI
+73. Requir firma de acuerdos de confidencialidad
+74. Establecer consecuencias claras para violaciones
+75. Realizar onboarding de seguridad para todos los usuarios
+76. Mantener políticas actualizadas y comunicadas
+77. Realizar auditorías de cumplimiento regulares
+78. Implementar programa de concienciación continua
+79. Establecer canal de denuncia de actividades sospechosas
+80. Fomentar cultura de seguridad en comunidad académica',
+
+'Fuentes Documentales:
+- UTFSM - Informe de Seguridad 2022-Q4
+- ANID (ex CONICYT) - Investigación de Incidente 2022-089
+- CSIRT REUNA - Alerta de Seguridad 2022-156
+- Fiscalía de Valparaíso - Causa RUC 2200789456-3
+- PDI Brigada de Cibercrimen - Investigación 2022-BC-0567
+- Universidad de Chile - Análisis de Caso (tesis de magíster)
+- IEEE Security & Privacy Magazine 2023 - Academic Network Security
+- NIST SP 800-113 - Guide to SSL VPN
+- RFC 5722 - Handling of Overlapping IPv6 Fragments
+- RFC 8200 - IPv6 Specification');
+
+-- CASO 11
+INSERT INTO casos_reales (tema_id, numero, titulo, empresa, pais, anio, descripcion, analisis, consecuencias, lecciones_aprendidas, referencias) VALUES
+(1, 11, 'MAC Spoofing en Red WiFi de Aeropuerto Arturo Merino Benítez',
+'Nuevo Pudahuel (Aeropuerto SCL)', 'Chile', 2023,
+'Ataque de clonación de direcciones MAC en red WiFi del aeropuerto permitió acceso no autorizado a sistemas internos de operaciones.',
+'Análisis Técnico:
+- Red WiFi pública: "SCL-Free-WiFi" sin autenticación
+- Red administrativa: "SCL-Staff" con WPA2-PSK + MAC filtering
+- Atacante capturó MACs autorizadas mediante sniffing pasivo
+- Clonó MAC address de dispositivo administrativo legítimo
+- Eludió MAC filtering y obtuvo acceso a red interna
+- Descubrió sistemas de gestión de vuelos sin segmentación adecuada
+- Accedió a información de pasajeros y horarios de vuelos
+- Duración: 12 días antes de detección',
+'Consecuencias:
+- Acceso a base de datos de 45,000 pasajeros
+- Información de vuelos y tripulaciones comprometida
+- Multa de $680 millones CLP de la DGAC
+- Investigación de PDI Brigada de Cibercrimen
+- Reconfiguración completa de infraestructura WiFi
+- Implementación urgente de 802.1X
+- Pérdida de certificación de seguridad temporal',
+'Lecciones:
+1. NO confiar únicamente en MAC filtering para seguridad
+2. Implementar 802.1X con autenticación RADIUS
+3. Utilizar WPA3-Enterprise en redes corporativas
+4. Segregar completamente redes públicas de administrativas
+5. Implementar NAC para validación de dispositivos
+6. Monitorear MACs duplicadas en tiempo real
+7. Usar certificados digitales para dispositivos corporativos
+8. Implementar detección de clonación de MAC
+9. Encriptar tráfico sensible con VPN adicional
+10. Realizar auditorías de seguridad WiFi periódicas',
+'Fuentes: DGAC Informe 2023-089, PDI Brigada Cibercrimen, CSIRT Transporte');
+
+-- CASO 12
+INSERT INTO casos_reales (tema_id, numero, titulo, empresa, pais, anio, descripcion, analisis, consecuencias, lecciones_aprendidas, referencias) VALUES
+(1, 12, 'Neighbor Discovery Protocol Attack en Red Gobierno',
+'Ministerio del Interior Chile', 'Chile', 2023,
+'Ataque de envenenamiento NDP (IPv6) permitió intercepción de comunicaciones gubernamentales sensibles.',
+'Análisis Técnico:
+- Red gubernamental con IPv6 nativo habilitado
+- Atacante explotó vulnerabilidad en Neighbor Discovery Protocol
+- Envío masivo de Router Advertisements falsas
+- Redireccionamiento de tráfico IPv6 a través de sistema malicioso
+- Intercepción de comunicaciones entre ministerios
+- SLAAC (Stateless Address Autoconfiguration) comprometido
+- Man-in-the-Middle exitoso durante 8 días
+- Captura de credenciales y documentos clasificados',
+'Consecuencias:
+- Compromiso de comunicaciones entre 3 ministerios
+- Fuga de documentos de seguridad nacional
+- Investigación de Contraloría y ANI
+- Intervención urgente de CSIRT Gobierno
+- Suspensión temporal de IPv6 en toda la red
+- Auditoría de seguridad en 47 instituciones públicas
+- Multas administrativas y proceso de responsabilidad
+- Impacto en seguridad nacional evaluado como "Alto"',
+'Lecciones:
+1. Implementar RA Guard en todos los switches
+2. Configurar DHCPv6 con autenticación
+3. Deshabilitar IPv6 si no se utiliza activamente
+4. Implementar SEND (Secure Neighbor Discovery)
+5. Utilizar ACLs para filtrar Router Advertisements
+6. Monitorear mensajes NDP anómalos
+7. Segregar redes gubernamentales con firewalls internos
+8. Implementar IPSec obligatorio para tráfico sensible
+9. Utilizar VPN gubernamental para comunicaciones críticas
+10. Realizar pentesting específico de IPv6',
+'Fuentes: CSIRT Gobierno 2023-156, Contraloría CGR-2023-445, ANI Clasificado');
+
+-- CASO 13
+INSERT INTO casos_reales (tema_id, numero, titulo, empresa, pais, anio, descripcion, analisis, consecuencias, lecciones_aprendidas, referencias) VALUES
+(1, 13, 'VLAN Hopping en Clínica Alemana',
+'Clínica Alemana', 'Chile', 2022,
+'Explotación de double-tagging VLAN permitió acceso desde red de invitados a sistemas médicos críticos.',
+'Análisis Técnico:
+- Red de invitados: VLAN 100 (acceso WiFi pacientes)
+- Red médica: VLAN 200 (sistemas clínicos)
+- Red administrativa: VLAN 300
+- Switches Cisco no configurados con native VLAN security
+- Atacante generó paquetes con doble etiqueta VLAN (double-tagging)
+- Primera etiqueta (VLAN 100) removida por primer switch
+- Segunda etiqueta (VLAN 200) permitió salto a red médica
+- Acceso a sistemas de historia clínica electrónica (HCE)
+- Compromiso de datos de 12,400 pacientes',
+'Consecuencias:
+- Fuga de historias clínicas de 12,400 pacientes
+- Violación de Ley 20.584 (derechos del paciente)
+- Multa MINSAL: $890 millones CLP
+- Demanda colectiva de pacientes
+- Investigación de Superintendencia de Salud
+- Reconfiguración de 340 switches de red
+- Implementación de Private VLANs
+- Costos totales: $2,100 millones CLP',
+'Lecciones:
+1. Cambiar native VLAN a VLAN no utilizada
+2. Deshabilitar DTP (Dynamic Trunking Protocol)
+3. Configurar trunk ports explícitamente
+4. Implementar VLAN Access Control Lists (VACLs)
+5. Utilizar Private VLANs para isolación estricta
+6. No usar VLAN 1 como native VLAN
+7. Implementar 802.1Q tunneling awareness
+8. Configurar allowed VLANs explícitamente en trunks
+9. Monitorear intentos de VLAN hopping
+10. Segregar completamente redes médicas con firewalls',
+'Fuentes: MINSAL Resolución 2022-1847, Superintendencia Salud, CSIRT Salud');
+
+-- CASO 14
+INSERT INTO casos_reales (tema_id, numero, titulo, empresa, pais, anio, descripcion, analisis, consecuencias, lecciones_aprendidas, referencias) VALUES
+(1, 14, 'IP Source Routing Attack en Banco Estado',
+'BancoEstado', 'Chile', 2023,
+'Explotación de IP source routing para evadir controles de firewall y acceder a sistemas internos bancarios.',
+'Análisis Técnico:
+- Firewall perimetral no bloqueaba IP source routing
+- Atacante construyó paquetes con opción "Loose Source Routing"
+- Especificó ruta de paquetes evitando inspección de firewall
+- Eludió ACLs basadas en direcciones IP origen
+- Acceso a servidores de aplicaciones bancarias internas
+- Explotación de vulnerabilidad en sistema de transferencias
+- Intento de transferencias fraudulentas por $4,500 millones
+- Detección por monitoreo de transacciones anómalas',
+'Consecuencias:
+- Bloqueo preventivo de $4,500 millones en transferencias
+- Interrupción temporal del sistema de transferencias (3 horas)
+- Investigación de CMF y SBIF
+- Multa de $1,200 millones CLP
+- Auditoría de seguridad completa
+- Actualización urgente de reglas de firewall
+- Implementación de controles adicionales
+- Pérdida de confianza de clientes corporativos',
+'Lecciones:
+1. Bloquear IP source routing en TODOS los routers (no ip source-route)
+2. Configurar firewalls para descartar paquetes con opciones IP
+3. Implementar strict source routing blocking
+4. Utilizar ingress filtering (BCP 38 / RFC 2827)
+5. Implementar egress filtering complementario
+6. Configurar uRPF (Unicast Reverse Path Forwarding)
+7. No confiar únicamente en direcciones IP para autenticación
+8. Implementar inspección profunda de opciones IP
+9. Monitorear paquetes con opciones IP no estándar
+10. Realizar pentesting de evasión de firewalls',
+'Fuentes: CMF Informe 2023-234, SBIF Fiscalización, CSIRT Financiero');
+
+-- CASO 15
+INSERT INTO casos_reales (tema_id, numero, titulo, empresa, pais, anio, descripcion, analisis, consecuencias, lecciones_aprendidas, referencias) VALUES
+(1, 15, 'Broadcast Storm por Loop en Red de Municipalidad de Santiago',
+'Municipalidad de Santiago', 'Chile', 2022,
+'Configuración incorrecta de Spanning Tree Protocol causó broadcast storm que inhabilitó servicios municipales durante 2 días.',
+'Análisis Técnico:
+- Red municipal con 89 switches sin STP configurado correctamente
+- Técnico conectó cable entre dos puertos del mismo switch (loop físico)
+- Broadcast storm generó tráfico de 9.8 Gbps en red de 1 Gbps
+- Saturación completa de todos los switches
+- CPUs de switches al 100%
+- Protocolos de red colapsados (ARP, DHCP, DNS)
+- Imposibilidad de administración remota
+- Pérdida total de servicios municipales online
+- Requirió desconexión física switch por switch',
+'Consecuencias:
+- Servicios municipales offline por 48 horas
+- 340,000 trámites ciudadanos afectados
+- Sistema de permisos de circulación inoperativo
+- Pérdida de $680 millones en recaudación
+- Daño reputacional severo
+- Interpelación del alcalde
+- Despido del jefe de informática
+- Auditoría de Contraloría
+- Plan de modernización tecnológica forzado ($890 millones)',
+'Lecciones:
+1. Implementar Spanning Tree Protocol (STP) en TODA la red
+2. Utilizar RSTP (Rapid STP) o MSTP para convergencia rápida
+3. Configurar BPDU Guard en puertos de acceso
+4. Implementar Root Guard en puertos críticos
+5. Utilizar Loop Guard para detectar loops unidireccionales
+6. Configurar Storm Control para limitar broadcast/multicast
+7. Implementar UDLD (UniDirectional Link Detection)
+8. Etiquetar físicamente puertos y cables de red
+9. Documentar topología de red actualizada
+10. Capacitar personal técnico en fundamentos de redes
+11. Implementar gestión centralizada de switches
+12. Configurar alertas de utilización anómala de CPU
+13. Mantener acceso out-of-band para administración
+14. Realizar auditorías de configuración periódicas
+15. Implementar redundancia con diseño adecuado',
+'Fuentes: Municipalidad Santiago Informe 2022-Q4, Contraloría CGR-2022-889, El Mercurio');
+
+-- =====================================================
+-- EJERCICIOS PRÁCTICOS - TEMA 1
+-- =====================================================
+
+-- Ejercicio 1
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 1, 'Identificación de Clases de Direcciones IPv4',
+'Clasifica las siguientes direcciones IP según su clase (A, B, C, D, E) y determina si son públicas o privadas:
+1. 172.16.45.89
+2. 192.168.1.1
+3. 8.8.8.8
+4. 224.0.0.5
+5. 10.50.100.200',
+'Básica', 10,
+'Respuestas:
+1. 172.16.45.89 - Clase B, Privada (rango RFC 1918: 172.16.0.0/12)
+2. 192.168.1.1 - Clase C, Privada (rango RFC 1918: 192.168.0.0/16)
+3. 8.8.8.8 - Clase A, Pública (Google DNS)
+4. 224.0.0.5 - Clase D, Multicast
+5. 10.50.100.200 - Clase A, Privada (rango RFC 1918: 10.0.0.0/8)');
+
+-- Ejercicio 2
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 2, 'Análisis de Dirección MAC OUI',
+'Dada la dirección MAC 00:1A:A0:45:B2:C3, identifica:
+1. Los bytes correspondientes al OUI
+2. Los bytes correspondientes al NIC
+3. El fabricante usando base de datos IEEE OUI
+4. Si es una dirección unicast o multicast
+5. Si es universally administered o locally administered',
+'Básica', 10,
+'Respuestas:
+1. OUI: 00:1A:A0
+2. NIC: 45:B2:C3
+3. Fabricante: Buscar 00-1A-A0 en IEEE OUI database
+4. Unicast (bit menos significativo del primer byte es 0)
+5. Universally administered (segundo bit menos significativo del primer byte es 0)');
+
+-- Ejercicio 3
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 3, 'Cálculo de Subredes IPv4',
+'Dada la red 192.168.10.0/24, divide en 4 subredes de igual tamaño y determina:
+1. Máscara de subred de cada nueva subred
+2. Dirección de red de cada subred
+3. Rango de IPs utilizables en cada subred
+4. Dirección de broadcast de cada subred',
+'Intermedia', 15,
+'Solución:
+Nueva máscara: /26 (255.255.255.192) - 64 IPs por subred
+
+Subred 1: 192.168.10.0/26
+- Red: 192.168.10.0
+- Rango: 192.168.10.1 - 192.168.10.62
+- Broadcast: 192.168.10.63
+
+Subred 2: 192.168.10.64/26
+- Red: 192.168.10.64
+- Rango: 192.168.10.65 - 192.168.10.126
+- Broadcast: 192.168.10.127
+
+Subred 3: 192.168.10.128/26
+- Red: 192.168.10.128
+- Rango: 192.168.10.129 - 192.168.10.190
+- Broadcast: 192.168.10.191
+
+Subred 4: 192.168.10.192/26
+- Red: 192.168.10.192
+- Rango: 192.168.10.193 - 192.168.10.254
+- Broadcast: 192.168.10.255');
+
+-- Ejercicio 4
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 4, 'Detección de ARP Spoofing con Wireshark',
+'Analiza la siguiente captura de tráfico ARP y determina si hay indicios de ARP spoofing:
+- 10:23:45 - ARP Reply: 192.168.1.1 is at 00:1A:2B:3C:4D:5E
+- 10:23:46 - ARP Reply: 192.168.1.1 is at AA:BB:CC:DD:EE:FF
+- 10:23:47 - ARP Reply: 192.168.1.1 is at 00:1A:2B:3C:4D:5E
+- 10:23:48 - ARP Reply: 192.168.1.1 is at AA:BB:CC:DD:EE:FF
+
+¿Qué está ocurriendo y cómo lo mitigarías?',
+'Intermedia', 15,
+'Análisis:
+SÍ hay ARP spoofing. La misma IP (192.168.1.1 - probablemente el gateway) está siendo anunciada con dos MACs diferentes alternadamente.
+
+Indicadores:
+1. Misma IP con múltiples MACs
+2. Respuestas ARP no solicitadas (gratuitous ARP)
+3. Cambios rápidos de MAC-IP binding
+
+Mitigación:
+1. Implementar Dynamic ARP Inspection (DAI)
+2. Configurar static ARP entries para gateway
+3. Habilitar DHCP Snooping
+4. Implementar port security
+5. Usar herramientas de detección: arpwatch, XArp
+6. Segregar red con VLANs
+7. Implementar 802.1X para autenticación de dispositivos');
+
+-- Ejercicio 5
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 5, 'Configuración de DHCP Snooping en Cisco',
+'Configura DHCP Snooping en un switch Cisco para proteger contra rogue DHCP servers. La red tiene:
+- VLAN 10: Red de usuarios
+- VLAN 20: Red de servidores
+- Servidor DHCP legítimo en puerto Gi0/1
+- Escribe los comandos necesarios',
+'Intermedia', 15,
+'Configuración:
+
+Switch(config)# ip dhcp snooping
+Switch(config)# ip dhcp snooping vlan 10,20
+Switch(config)# no ip dhcp snooping information option
+
+! Configurar puerto trusted (servidor DHCP)
+Switch(config)# interface GigabitEthernet0/1
+Switch(config-if)# ip dhcp snooping trust
+Switch(config-if)# exit
+
+! Configurar rate limiting en puertos de acceso
+Switch(config)# interface range GigabitEthernet0/2-24
+Switch(config-if-range)# ip dhcp snooping limit rate 10
+Switch(config-if-range)# exit
+
+! Guardar configuración
+Switch(config)# exit
+Switch# write memory
+
+Verificación:
+Switch# show ip dhcp snooping
+Switch# show ip dhcp snooping binding');
+
+-- Ejercicio 6
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 6, 'Análisis de Dirección IPv6',
+'Analiza la dirección IPv6: 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+1. Comprímela usando notación válida
+2. Identifica el tipo de dirección
+3. Determina el prefijo de red (/64)
+4. Calcula la dirección de interface ID',
+'Básica', 10,
+'Respuestas:
+
+1. Compresión:
+   2001:db8:85a3::8a2e:370:7334
+   (se eliminan ceros a la izquierda y se usa :: para secuencia de ceros)
+
+2. Tipo: Unicast Global (comienza con 2000::/3)
+   Nota: 2001:db8::/32 es rango de documentación (RFC 3849)
+
+3. Prefijo /64:
+   2001:0db8:85a3:0000::/64
+   o
+   2001:db8:85a3::/64
+
+4. Interface ID (últimos 64 bits):
+   0000:0000:8a2e:0370:7334
+   o
+   ::8a2e:370:7334');
+
+-- Ejercicio 7
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 7, 'Detección de MAC Flooding',
+'Un switch muestra los siguientes síntomas:
+- CPU al 95%
+- Tráfico broadcast excesivo
+- Tabla CAM con 50,000 entradas (capacidad 8,000)
+- Latencia de 500ms
+
+1. ¿Qué ataque está ocurriendo?
+2. ¿Cómo verificarlo?
+3. ¿Cómo mitigarlo?',
+'Intermedia', 15,
+'Análisis:
+
+1. ATAQUE: MAC Flooding / CAM Table Overflow
+   El atacante está inundando la tabla CAM con MACs falsas
+
+2. VERIFICACIÓN:
+   # show mac address-table count
+   # show mac address-table dynamic
+   # show port-security
+   # show processes cpu sorted
+
+3. MITIGACIÓN INMEDIATA:
+   - Identificar puerto atacante con comandos show
+   - Shutdown del puerto:
+     Switch(config)# interface Gi0/X
+     Switch(config-if)# shutdown
+
+4. PREVENCIÓN PERMANENTE:
+   Switch(config)# interface range Gi0/1-24
+   Switch(config-if-range)# switchport mode access
+   Switch(config-if-range)# switchport port-security
+   Switch(config-if-range)# switchport port-security maximum 3
+   Switch(config-if-range)# switchport port-security violation shutdown
+   Switch(config-if-range)# switchport port-security mac-address sticky
+   Switch(config-if-range)# switchport port-security aging time 2
+   Switch(config-if-range)# switchport port-security aging type inactivity');
+
+-- Ejercicio 8
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 8, 'Diseño de Esquema de Direccionamiento IPv4',
+'Diseña un esquema de direccionamiento para una empresa con:
+- 200 usuarios (VLAN 10)
+- 50 servidores (VLAN 20)
+- 30 impresoras (VLAN 30)
+- 20 dispositivos de red (VLAN 99)
+Red disponible: 172.16.0.0/22
+
+Asigna subredes optimizadas para cada VLAN.',
+'Avanzada', 20,
+'Solución optimizada:
+
+Red disponible: 172.16.0.0/22 (1024 IPs)
+
+VLAN 10 - Usuarios (necesita 200 IPs, usar /24 = 254 hosts):
+- Subred: 172.16.0.0/24
+- Rango: 172.16.0.1 - 172.16.0.254
+- Gateway: 172.16.0.1
+
+VLAN 20 - Servidores (necesita 50 IPs, usar /26 = 62 hosts):
+- Subred: 172.16.1.0/26
+- Rango: 172.16.1.1 - 172.16.1.62
+- Gateway: 172.16.1.1
+
+VLAN 30 - Impresoras (necesita 30 IPs, usar /27 = 30 hosts):
+- Subred: 172.16.1.64/27
+- Rango: 172.16.1.65 - 172.16.1.94
+- Gateway: 172.16.1.65
+
+VLAN 99 - Red (necesita 20 IPs, usar /27 = 30 hosts):
+- Subred: 172.16.1.96/27
+- Rango: 172.16.1.97 - 172.16.1.126
+- Gateway: 172.16.1.97
+
+Espacio restante para crecimiento:
+172.16.1.128/25 - 172.16.3.255/24');
+
+-- Ejercicio 9
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 9, 'Configuración de Port Security',
+'Configura port security en un puerto Cisco para permitir máximo 2 MACs, con aprendizaje sticky, y que en caso de violación envíe un trap SNMP pero no cierre el puerto.',
+'Intermedia', 15,
+'Configuración:
+
+Switch(config)# interface GigabitEthernet0/5
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 10
+Switch(config-if)# switchport port-security
+Switch(config-if)# switchport port-security maximum 2
+Switch(config-if)# switchport port-security violation restrict
+Switch(config-if)# switchport port-security mac-address sticky
+Switch(config-if)# switchport port-security aging time 5
+Switch(config-if)# switchport port-security aging type inactivity
+Switch(config-if)# exit
+
+Explicación de parámetros:
+- maximum 2: Máximo 2 MACs permitidas
+- violation restrict: Descarta tráfico pero NO cierra puerto, envía trap SNMP
+- sticky: Aprende MACs dinámicamente y las guarda en running-config
+- aging time 5: Elimina MACs después de 5 min de inactividad
+
+Verificación:
+Switch# show port-security interface Gi0/5
+Switch# show port-security address');
+
+-- Ejercicio 10
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 10, 'Análisis Forense de Ataque IPv6',
+'Analiza estos logs de un firewall e identifica el ataque IPv6:
+
+15:23:45 - ICMPv6 Router Advertisement from fe80::1 to ff02::1
+15:23:46 - ICMPv6 Router Advertisement from fe80::2 to ff02::1
+15:23:46 - ICMPv6 Router Advertisement from fe80::3 to ff02::1
+15:23:47 - 500+ Router Advertisements en 1 segundo
+
+¿Qué ataque es y cómo prevenirlo?',
+'Avanzada', 20,
+'Análisis:
+
+ATAQUE: Router Advertisement Flooding (NDP Attack)
+
+Descripción:
+- Múltiples RAs falsas desde diferentes link-local addresses
+- Flooding masivo de RAs (500+ por segundo)
+- Objetivo: Causar DoS o Man-in-the-Middle
+- Afecta SLAAC (StateLess Address AutoConfiguration)
+
+Consecuencias:
+1. Hosts configuran múltiples gateways
+2. Tabla de routing IPv6 saturada
+3. Posible redirección de tráfico
+4. DoS por consumo de recursos
+
+PREVENCIÓN:
+
+1. RA Guard en switches:
+   Switch(config)# ipv6 nd raguard policy BLOCK_RA
+   Switch(config-nd-raguard)# device-role host
+   Switch(config-nd-raguard)# exit
+   Switch(config)# interface range Gi0/1-24
+   Switch(config-if-range)# ipv6 nd raguard attach-policy BLOCK_RA
+
+2. En router legítimo:
+   Router(config-if)# ipv6 nd ra interval 200
+   Router(config-if)# ipv6 nd ra lifetime 1800
+
+3. Alternativas:
+   - Usar DHCPv6 en lugar de SLAAC
+   - Implementar SEND (SEcure Neighbor Discovery)
+   - Deshabilitar IPv6 si no se usa
+   - Implementar ACLs IPv6 en firewall');
+
+-- Ejercicio 11
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 11, 'Troubleshooting de DHCP',
+'Un cliente no obtiene dirección IP por DHCP. Los logs muestran:
+
+- DHCP Discover enviado
+- No se recibe DHCP Offer
+- Switch entre cliente y servidor DHCP
+
+¿Cuáles son las posibles causas y cómo solucionarlas?',
+'Intermedia', 15,
+'Diagnóstico y Solución:
+
+POSIBLES CAUSAS:
+
+1. IP Helper no configurado en gateway
+   Problema: Broadcasts DHCP no atraviesan router
+   Solución:
+   Router(config)# interface vlan 10
+   Router(config-if)# ip helper-address 192.168.1.100
+
+2. DHCP Snooping bloqueando servidor
+   Problema: Puerto servidor no es trusted
+   Solución:
+   Switch(config)# interface Gi0/1
+   Switch(config-if)# ip dhcp snooping trust
+
+3. Pool DHCP agotado
+   Verificar:
+   Server# show ip dhcp binding
+   Server# show ip dhcp pool
+
+4. Firewall bloqueando puertos UDP 67/68
+   Solución:
+   Firewall(config)# access-list 100 permit udp any any eq 67
+   Firewall(config)# access-list 100 permit udp any any eq 68
+
+5. VLAN incorrecta
+   Verificar:
+   Switch# show vlan brief
+   Switch# show interface Gi0/X switchport
+
+6. Cable/conectividad física
+   Verificar:
+   Switch# show interface Gi0/X status
+
+PASOS DE TROUBLESHOOTING:
+1. Verificar conectividad física
+2. Verificar VLAN correcta
+3. Verificar DHCP Snooping trusted ports
+4. Verificar IP helper en gateway
+5. Verificar pool DHCP disponible
+6. Capturar tráfico con Wireshark');
+
+-- Ejercicio 12
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 12, 'Implementación de Dynamic ARP Inspection',
+'Configura DAI (Dynamic ARP Inspection) en un switch Cisco para VLAN 10, utilizando la base de datos de DHCP Snooping.',
+'Avanzada', 20,
+'Configuración completa:
+
+! Paso 1: Habilitar DHCP Snooping (prerequisito)
+Switch(config)# ip dhcp snooping
+Switch(config)# ip dhcp snooping vlan 10
+Switch(config)# no ip dhcp snooping information option
+
+! Paso 2: Configurar puerto trusted para DHCP
+Switch(config)# interface GigabitEthernet0/1
+Switch(config-if)# description SERVER_DHCP
+Switch(config-if)# ip dhcp snooping trust
+Switch(config-if)# exit
+
+! Paso 3: Habilitar DAI en VLAN
+Switch(config)# ip arp inspection vlan 10
+
+! Paso 4: Configurar puertos trusted para DAI
+Switch(config)# interface GigabitEthernet0/1
+Switch(config-if)# ip arp inspection trust
+Switch(config-if)# exit
+
+! Paso 5: Configurar rate limiting (prevenir DoS)
+Switch(config)# interface range GigabitEthernet0/2-24
+Switch(config-if-range)# ip arp inspection limit rate 15 burst interval 1
+Switch(config-if-range)# exit
+
+! Paso 6: Validaciones adicionales (opcional)
+Switch(config)# ip arp inspection validate src-mac dst-mac ip
+
+! Paso 7: Logging
+Switch(config)# ip arp inspection log-buffer entries 1024
+Switch(config)# ip arp inspection log-buffer logs 1024 interval 10
+
+Verificación:
+Switch# show ip arp inspection
+Switch# show ip arp inspection statistics vlan 10
+Switch# show ip arp inspection interfaces
+Switch# show ip dhcp snooping binding');
+
+-- Ejercicio 13
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 13, 'Cálculo de VLSM',
+'Diseña un esquema VLSM para la siguiente topología:
+- Sede Principal: 500 hosts
+- Sucursal A: 100 hosts
+- Sucursal B: 50 hosts
+- Enlaces WAN (3 enlaces punto a punto)
+
+Red asignada: 10.10.0.0/16',
+'Avanzada', 20,
+'Solución VLSM óptima:
+
+REGLA: Asignar de mayor a menor necesidad
+
+1. SEDE PRINCIPAL (500 hosts):
+   Necesita: 512 IPs → usar /23
+   Red: 10.10.0.0/23
+   Rango: 10.10.0.1 - 10.10.1.254
+   Broadcast: 10.10.1.255
+   Gateway sugerido: 10.10.0.1
+
+2. SUCURSAL A (100 hosts):
+   Necesita: 128 IPs → usar /25
+   Red: 10.10.2.0/25
+   Rango: 10.10.2.1 - 10.10.2.126
+   Broadcast: 10.10.2.127
+   Gateway sugerido: 10.10.2.1
+
+3. SUCURSAL B (50 hosts):
+   Necesita: 64 IPs → usar /26
+   Red: 10.10.2.128/26
+   Rango: 10.10.2.129 - 10.10.2.190
+   Broadcast: 10.10.2.191
+   Gateway sugerido: 10.10.2.129
+
+4. ENLACE WAN 1 (2 hosts):
+   Necesita: 4 IPs → usar /30
+   Red: 10.10.2.192/30
+   IP1: 10.10.2.193
+   IP2: 10.10.2.194
+
+5. ENLACE WAN 2 (2 hosts):
+   Red: 10.10.2.196/30
+   IP1: 10.10.2.197
+   IP2: 10.10.2.198
+
+6. ENLACE WAN 3 (2 hosts):
+   Red: 10.10.2.200/30
+   IP1: 10.10.2.201
+   IP2: 10.10.2.202
+
+ESPACIO RESTANTE: 10.10.2.204/30 - 10.10.255.255
+(Reservado para crecimiento futuro)');
+
+-- Ejercicio 14
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 14, 'Análisis de Captura Wireshark - Ataque de Red',
+'Analiza esta captura de paquetes y identifica el ataque:
+
+Paquete 1: ARP Request - Who has 192.168.1.1? Tell 192.168.1.100
+Paquete 2: ARP Reply - 192.168.1.1 is at aa:bb:cc:dd:ee:01
+Paquete 3-500: ARP Reply - 192.168.1.2-192.168.1.254 is at aa:bb:cc:dd:ee:01
+Tiempo: 500 paquetes en 2 segundos
+
+Identifica el ataque y las contramedidas.',
+'Avanzada', 20,
+'Análisis Forense:
+
+ATAQUE IDENTIFICADO: Gratuitous ARP Attack + ARP Poisoning Masivo
+
+INDICADORES:
+1. Respuestas ARP no solicitadas (gratuitous)
+2. Múltiples IPs con la MISMA MAC (aa:bb:cc:dd:ee:01)
+3. Tasa anómala: 250 paquetes/segundo
+4. Patrón secuencial de IPs
+
+OBJETIVO DEL ATACANTE:
+- Man-in-the-Middle: Interceptar todo el tráfico de la subred
+- Redirigir tráfico a través de sistema malicioso
+- Posible captura de credenciales
+
+CONTRAMEDIDAS:
+
+1. DETECCIÓN:
+   - Identificar MAC atacante: aa:bb:cc:dd:ee:01
+   - Localizar puerto en switch:
+     Switch# show mac address-table address aabb.ccdd.ee01
+
+2. MITIGACIÓN INMEDIATA:
+   Switch(config)# interface Gi0/X
+   Switch(config-if)# shutdown
+   Switch(config-if)# description BLOCKED_ARP_POISONING
+
+3. PREVENCIÓN PERMANENTE:
+   a) Dynamic ARP Inspection:
+      Switch(config)# ip arp inspection vlan 10
+      Switch(config)# ip arp inspection validate src-mac dst-mac ip
+
+   b) Port Security:
+      Switch(config-if)# switchport port-security
+      Switch(config-if)# switchport port-security maximum 1
+      Switch(config-if)# switchport port-security violation shutdown
+
+   c) Monitoring:
+      - Implementar IDS con reglas ARP
+      - Usar arpwatch para monitoreo
+      - Alertas en SIEM para patrones anómalos
+
+4. ANÁLISIS FORENSE:
+   - Preservar evidencia (captura PCAP)
+   - Identificar sistema atacante
+   - Revisar logs de autenticación (802.1X)
+   - Investigar compromiso potencial');
+
+-- Ejercicio 15
+INSERT INTO ejercicios (tema_id, numero, titulo, descripcion, dificultad, puntos, solucion) VALUES
+(1, 15, 'Diseño de Arquitectura de Red Segura',
+'Diseña una arquitectura de red segura para una empresa con:
+- 300 usuarios
+- 20 servidores
+- 10 impresoras
+- DMZ para servicios públicos
+- Acceso WiFi de invitados
+
+Incluye: VLANs, direccionamiento IP, ACLs básicas y controles de seguridad.',
+'Avanzada', 25,
+'ARQUITECTURA DE RED SEGURA
+
+1. DISEÑO DE VLANs:
+   - VLAN 10: Usuarios (300 hosts) - 10.1.10.0/23
+   - VLAN 20: Servidores Internos (20 hosts) - 10.1.20.0/27
+   - VLAN 30: Impresoras (10 hosts) - 10.1.30.0/28
+   - VLAN 40: DMZ Servidores Públicos - 10.1.40.0/28
+   - VLAN 50: WiFi Invitados - 10.1.50.0/24
+   - VLAN 99: Administración de Red - 10.1.99.0/28
+
+2. CONTROLES DE SEGURIDAD POR VLAN:
+
+VLAN 10 - USUARIOS:
+- DHCP Snooping habilitado
+- DAI (Dynamic ARP Inspection)
+- IP Source Guard
+- Port Security (max 2 MACs)
+- 802.1X autenticación
+- Acceso limitado a servidores internos
+
+VLAN 20 - SERVIDORES:
+- IPs estáticas (no DHCP)
+- Port Security (max 1 MAC, sticky)
+- Private VLAN (isolated)
+- ACLs restrictivas
+- Acceso solo desde VLANs autorizadas
+
+VLAN 30 - IMPRESORAS:
+- IPs estáticas reservadas
+- Port Security
+- Aislamiento entre impresoras (PVLAN)
+- Acceso solo protocolos de impresión
+
+VLAN 40 - DMZ:
+- Firewall con inspección stateful
+- IPS/IDS inline
+- Acceso controlado desde Internet
+- Prohibido acceso a VLANs internas
+
+VLAN 50 - WIFI INVITADOS:
+- Completamente aislada
+- Captive portal
+- Rate limiting
+- Prohibido acceso a redes internas
+- Solo salida a Internet
+
+VLAN 99 - ADMINISTRACIÓN:
+- Acceso solo desde estaciones admin
+- MFA requerido
+- Out-of-band management
+- Logging exhaustivo
+
+3. ACLs BÁSICAS:
+
+! ACL VLAN 10 → Servidores
+ip access-list extended USERS_TO_SERVERS
+ permit tcp 10.1.10.0 0.0.1.255 10.1.20.0 0.0.0.31 eq 443
+ permit tcp 10.1.10.0 0.0.1.255 10.1.20.0 0.0.0.31 eq 80
+ permit tcp 10.1.10.0 0.0.1.255 10.1.20.0 0.0.0.31 eq 445
+ deny ip any any log
+
+! ACL DMZ → Internet
+ip access-list extended DMZ_TO_INTERNET
+ permit tcp 10.1.40.0 0.0.0.15 any eq 80
+ permit tcp 10.1.40.0 0.0.0.15 any eq 443
+ permit udp 10.1.40.0 0.0.0.15 any eq 53
+ deny ip any any log
+
+! ACL WiFi Invitados
+ip access-list extended GUEST_WIFI
+ deny ip 10.1.50.0 0.0.0.255 10.1.0.0 0.0.255.255
+ permit ip 10.1.50.0 0.0.0.255 any
+
+4. CONTROLES ADICIONALES:
+- Implementar SIEM centralizado
+- Backup automático de configuraciones
+- NTP para sincronización de logs
+- SNMP v3 para monitoreo
+- SSH solo (deshabilitar Telnet)
+- AAA con RADIUS/TACACS+
+- Logging a servidor syslog centralizado');
+

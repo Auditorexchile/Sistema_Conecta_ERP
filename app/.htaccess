@@ -1,0 +1,3 @@
+# Conecta ERP - Bloquear acceso directo a app/
+Order deny,allow
+Deny from all

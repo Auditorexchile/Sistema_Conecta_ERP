@@ -1,0 +1,25 @@
+# Conecta ERP - Public folder
+# Permitir acceso público solo a esta carpeta
+
+# Activar rewrite
+RewriteEngine On
+
+# Redireccionar peticiones de API
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ ../app/api/v1/routes.php [L,QSA]
+
+# Redirigir al index si no existe el archivo
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Permitir solo GET, POST, PUT, DELETE
+<LimitExcept GET POST PUT DELETE>
+    Order allow,deny
+    Deny from all
+</LimitExcept>
+
+# Protección adicional
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-XSS-Protection "1; mode=block"

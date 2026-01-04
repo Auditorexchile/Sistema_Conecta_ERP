@@ -1,0 +1,53 @@
+# Conecta ERP - Configuración de seguridad
+# Bloquear acceso directo a carpetas sensibles
+
+# Activar rewrite engine
+RewriteEngine On
+
+# Bloquear acceso a archivos de configuración
+<FilesMatch "\.(env|ini|log|sh|sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bloquear acceso a carpetas app, database, storage
+RedirectMatch 403 ^/app(/|$)
+RedirectMatch 403 ^/database(/|$)
+RedirectMatch 403 ^/storage(/|$)
+RedirectMatch 403 ^/\.git
+
+# Protección XSS
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Deshabilitar listado de directorios
+Options -Indexes
+
+# Prevenir clickjacking
+Header always append X-Frame-Options SAMEORIGIN
+
+# Forzar HTTPS (descomentar en producción)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redireccionar todas las peticiones a public/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/$1 [L]
+
+# Tiempo de sesión
+php_value session.gc_maxlifetime 7200
+php_value session.cookie_httponly 1
+php_value session.cookie_secure 0
+php_value session.use_only_cookies 1
+
+# Límites de upload
+php_value upload_max_filesize 50M
+php_value post_max_size 50M
+php_value max_execution_time 300
+php_value max_input_time 300
+php_value memory_limit 256M
